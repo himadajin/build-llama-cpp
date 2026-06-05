@@ -1,0 +1,52 @@
+# https://taskfile.dev/docs/guide
+version: "3"
+
+vars:
+    BUILD_DIR: build
+
+tasks:
+    release:configure:
+        desc: "Configure release build"
+        vars:
+            cmake_args: >-
+                -G Ninja
+                -S llama.cpp
+                -B {{.BUILD_DIR}}
+                -DCMAKE_BUILD_TYPE=Release
+                -DCMAKE_C_COMPILER="/usr/bin/clang"
+                -DCMAKE_CXX_COMPILER="/usr/bin/clang++"
+                -DCMAKE_C_COMPILER_LAUNCHER="ccache"
+                -DCMAKE_CXX_COMPILER_LAUNCHER="ccache"
+                -DCMAKE_OSX_ARCHITECTURES=arm64
+                -DGGML_METAL=ON
+                -DGGML_NATIVE=ON
+                -DBUILD_SHARED_LIBS=OFF
+        cmd: cmake {{.cmake_args}}
+
+    release:build:
+        desc: "Build release"
+        cmd: cmake --build {{.BUILD_DIR}}
+
+    release:clean:
+        desc: "Clean release build"
+        cmd: cmake --build {{.BUILD_DIR}} --target clean
+
+    open-web-ui:up:
+        desc: "Run Open Web UI in foreground"
+        cmd: docker compose up open-web-ui
+
+    open-web-ui:up:detach:
+        desc: "Run Open Web UI in background"
+        cmd: docker compose up -d open-web-ui
+
+    open-web-ui:down:
+        desc: "Stop Open Web UI"
+        cmd: docker compose down
+
+    open-web-ui:logs:
+        desc: "Show Open Web UI logs"
+        cmd: docker compose logs -f open-web-ui
+
+    open-web-ui:pull:
+        desc: "Pull Open Web UI image"
+        cmd: docker compose pull open-web-ui

@@ -1,4 +1,12 @@
+# Build artifacts
+/build/
+/build-*/
+
+# Local environment
+/.env
+
 # Local workspace directories
 /works/
 /local/
 /tmp/
+/model/
