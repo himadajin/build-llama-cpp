@@ -10,34 +10,25 @@ task release:configure
 task release:build
 ```
 
-## Models
+## Server tasks
 
-Models are not committed to this repository. Put GGUF files under `./model/`.
+Models are started with `llama-server -hf ...`, so model files do not need to be committed or placed under this repository. On first run, llama.cpp downloads the GGUF files into its cache.
 
-Tested models:
-
-- [gemma-4-12B-it-Q4_K_M.gguf](https://huggingface.co/ggml-org/gemma-4-12B-it-GGUF/blob/main/gemma-4-12B-it-Q4_K_M.gguf)
-  - Variant: instruction-tuned
-  - Quantization: `Q4_K_M`
-  - SHA256: `1278394b693672ac2799eadc9a83fd98259a6a88a40acfb1dcaa6c6fc895a606`
-- [gemma-4-12B-it-Q8_0.gguf](https://huggingface.co/ggml-org/gemma-4-12B-it-GGUF/blob/main/gemma-4-12B-it-Q8_0.gguf)
-  - Variant: instruction-tuned
-  - Quantization: `Q8_0`
-  - SHA256: `047dae1d7894b9de8f08141e841544e007243290c02df8b39872991d1940c795`
-
-Check a downloaded model hash:
-
-```sh
-shasum -a 256 model/<filename>.gguf
-```
-
-## Run with llama.cpp
-
-After downloading a model:
-
-```sh
-./build/bin/llama-cli -m ./model/gemma-4-12B-it-Q4_K_M.gguf -p "Hello"
-```
+- `task server:lfm25-jp`
+  - Model: `LiquidAI/LFM2.5-1.2B-JP-202606-GGUF:Q4_K_M`
+  - Open WebUI URL: `http://host.docker.internal:8081/v1`
+- `task server:gemma4-e2b-qat`
+  - Model: `google/gemma-4-E2B-it-qat-q4_0-gguf:Q4_0`
+  - Open WebUI URL: `http://host.docker.internal:8082/v1`
+- `task server:gemma4-e4b-qat`
+  - Model: `google/gemma-4-E4B-it-qat-q4_0-gguf:Q4_0`
+  - Open WebUI URL: `http://host.docker.internal:8083/v1`
+- `task server:gemma4-12b-qat`
+  - Model: `google/gemma-4-12B-it-qat-q4_0-gguf:Q4_0`
+  - Open WebUI URL: `http://host.docker.internal:8084/v1`
+- `task server:gemma4-26b-a4b-qat`
+  - Model: `google/gemma-4-26B-A4B-it-qat-q4_0-gguf:Q4_0`
+  - Open WebUI URL: `http://host.docker.internal:8085/v1`
 
 ## Serving models with llama-server
 
@@ -48,8 +39,8 @@ Important options:
 
 - `--host 0.0.0.0`: listen on all interfaces so Docker containers can reach the host server.
 - `--port <port>`: server port used in the Open WebUI connection URL.
-- `--model <path>` / `-m <path>`: local GGUF model file.
 - `--hf-repo <repo>:<quant>` / `-hf <repo>:<quant>`: download and run a GGUF model from Hugging Face.
+- `--model <path>` / `-m <path>`: local GGUF model file, if using a manually downloaded model.
 - `--alias <name>`: model id returned by `/v1/models`; this is the name shown in Open WebUI.
 - `--ctx-size <tokens>`: context window size for chat requests.
 - `--gpu-layers all`: offload all possible layers to GPU/Metal.
@@ -59,13 +50,7 @@ Important options:
 Example:
 
 ```sh
-./build/bin/llama-server \
-  --model ./model/gemma-4-12B-it-Q4_K_M.gguf \
-  --alias gemma-4-12b-it-q4 \
-  --host 0.0.0.0 \
-  --port 8080 \
-  --ctx-size 8192 \
-  --gpu-layers all
+task server:lfm25-jp
 ```
 
 ## Run Open Web UI
