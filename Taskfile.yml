@@ -58,7 +58,43 @@ tasks:
               vars:
                   HF_REPO: LiquidAI/LFM2.5-1.2B-JP-202606-GGUF:Q4_K_M
                   ALIAS: lfm25-12b-jp-202606-q4
+                  PORT: 8081
+
+    server:gemma4-e2b-qat:
+        desc: "Run Gemma 4 E2B IT QAT server"
+        cmds:
+            - task: server:hf
+              vars:
+                  HF_REPO: google/gemma-4-E2B-it-qat-q4_0-gguf:Q4_0
+                  ALIAS: gemma4-e2b-it-qat-q4
                   PORT: 8082
+
+    server:gemma4-e4b-qat:
+        desc: "Run Gemma 4 E4B IT QAT server"
+        cmds:
+            - task: server:hf
+              vars:
+                  HF_REPO: google/gemma-4-E4B-it-qat-q4_0-gguf:Q4_0
+                  ALIAS: gemma4-e4b-it-qat-q4
+                  PORT: 8083
+
+    server:gemma4-12b-qat:
+        desc: "Run Gemma 4 12B IT QAT server"
+        cmds:
+            - task: server:hf
+              vars:
+                  HF_REPO: google/gemma-4-12B-it-qat-q4_0-gguf:Q4_0
+                  ALIAS: gemma4-12b-it-qat-q4
+                  PORT: 8084
+
+    server:gemma4-26b-a4b-qat:
+        desc: "Run Gemma 4 26B A4B IT QAT server"
+        cmds:
+            - task: server:hf
+              vars:
+                  HF_REPO: google/gemma-4-26B-A4B-it-qat-q4_0-gguf:Q4_0
+                  ALIAS: gemma4-26b-a4b-it-qat-q4
+                  PORT: 8085
 
     open-web-ui:up:
         desc: "Run Open Web UI in foreground"
