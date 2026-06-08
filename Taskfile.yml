@@ -3,6 +3,12 @@ version: "3"
 
 vars:
     BUILD_DIR: build
+    LLAMA_SERVER: "{{.BUILD_DIR}}/bin/llama-server"
+    LLAMA_SERVER_COMMON_ARGS: >-
+        --host 0.0.0.0
+        --ctx-size 8192
+        --gpu-layers all
+        --jinja
 
 tasks:
     release:configure:
@@ -30,6 +36,29 @@ tasks:
     release:clean:
         desc: "Clean release build"
         cmd: cmake --build {{.BUILD_DIR}} --target clean
+
+    server:hf:
+        internal: true
+        requires:
+            vars:
+                - HF_REPO
+                - ALIAS
+                - PORT
+        cmd: >-
+            {{.LLAMA_SERVER}}
+            -hf {{.HF_REPO}}
+            --alias {{.ALIAS}}
+            --port {{.PORT}}
+            {{.LLAMA_SERVER_COMMON_ARGS}}
+
+    server:lfm25-jp:
+        desc: "Run LFM2.5 1.2B JP server"
+        cmds:
+            - task: server:hf
+              vars:
+                  HF_REPO: LiquidAI/LFM2.5-1.2B-JP-202606-GGUF:Q4_K_M
+                  ALIAS: lfm25-12b-jp-202606-q4
+                  PORT: 8082
 
     open-web-ui:up:
         desc: "Run Open Web UI in foreground"
