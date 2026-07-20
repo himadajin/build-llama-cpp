@@ -27,7 +27,8 @@ tasks:
                 -DGGML_METAL=ON
                 -DGGML_NATIVE=ON
                 -DBUILD_SHARED_LIBS=OFF
-        cmd: cmake {{.cmake_args}}
+                -DLLAMA_OPENSSL=ON
+        cmd: cmake --fresh {{.cmake_args}}
 
     release:build:
         desc: "Build release"
