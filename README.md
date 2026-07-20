@@ -5,7 +5,7 @@ A local workspace for building llama.cpp and running local GGUF models.
 ## Checkout and build
 
 ```sh
-git -C llama.cpp checkout b9555
+git -C llama.cpp checkout b10068
 task release:configure
 task release:build
 ```
