@@ -1,6 +1,6 @@
 services:
     open-web-ui:
-        image: ${OPEN_WEBUI_IMAGE:-ghcr.io/open-webui/open-webui:main}
+        image: ghcr.io/open-webui/open-webui:v0.10.2
         ports:
             - "${OPEN_WEBUI_HOST_PORT:-3000}:${OPEN_WEBUI_CONTAINER_PORT:-8080}"
         extra_hosts:
