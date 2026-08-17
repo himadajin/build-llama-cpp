@@ -5,7 +5,6 @@ vars:
     BUILD_DIR: build
     LLAMA_SERVER: "{{.BUILD_DIR}}/bin/llama-server"
     LLAMA_SERVER_COMMON_ARGS: >-
-        --host 0.0.0.0
         --ctx-size 8192
         --gpu-layers all
         --jinja
