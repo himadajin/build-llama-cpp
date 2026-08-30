@@ -14,12 +14,10 @@ tasks:
             vars:
                 - HF_REPO
                 - ALIAS
-                - PORT
         cmd: >-
             {{.LLAMA_SERVER}}
             -hf {{.HF_REPO}}
             --alias {{.ALIAS}}
-            --port {{.PORT}}
             {{.LLAMA_SERVER_COMMON_ARGS}}
 
     server:hf:translation:
@@ -28,12 +26,10 @@ tasks:
             vars:
                 - HF_REPO
                 - ALIAS
-                - PORT
         cmd: >-
             {{.LLAMA_SERVER}}
             -hf {{.HF_REPO}}
             --alias {{.ALIAS}}
-            --port {{.PORT}}
             {{.LLAMA_SERVER_COMMON_ARGS}}
             --temp 0.7
             --top-p 0.6
@@ -48,7 +44,6 @@ tasks:
               vars:
                   HF_REPO: LiquidAI/LFM2.5-1.2B-JP-202606-GGUF:Q4_K_M
                   ALIAS: lfm25-12b-jp-202606-q4
-                  PORT: 8081
 
     server:hy-mt2-1.8b:
         desc: "Run Tencent Hy-MT2 1.8B translation server"
@@ -57,7 +52,6 @@ tasks:
               vars:
                   HF_REPO: tencent/Hy-MT2-1.8B-GGUF:Q4_K_M
                   ALIAS: hy-mt2-1.8b-q4
-                  PORT: 8086
 
     server:hy-mt2-7b:
         desc: "Run Tencent Hy-MT2 7B translation server"
@@ -66,7 +60,6 @@ tasks:
               vars:
                   HF_REPO: tencent/Hy-MT2-7B-GGUF:Q4_K_M
                   ALIAS: hy-mt2-7b-q4
-                  PORT: 8087
 
     server:gemma4-e2b-qat:
         desc: "Run Gemma 4 E2B IT QAT server"
@@ -75,7 +68,6 @@ tasks:
               vars:
                   HF_REPO: google/gemma-4-E2B-it-qat-q4_0-gguf:Q4_0
                   ALIAS: gemma4-e2b-it-qat-q4
-                  PORT: 8082
 
     server:gemma4-e4b-qat:
         desc: "Run Gemma 4 E4B IT QAT server"
@@ -84,7 +76,6 @@ tasks:
               vars:
                   HF_REPO: google/gemma-4-E4B-it-qat-q4_0-gguf:Q4_0
                   ALIAS: gemma4-e4b-it-qat-q4
-                  PORT: 8083
 
     server:gemma4-12b-qat:
         desc: "Run Gemma 4 12B IT QAT server"
@@ -93,7 +84,6 @@ tasks:
               vars:
                   HF_REPO: google/gemma-4-12B-it-qat-q4_0-gguf:Q4_0
                   ALIAS: gemma4-12b-it-qat-q4
-                  PORT: 8084
 
     server:gemma4-26b-a4b-qat:
         desc: "Run Gemma 4 26B A4B IT QAT server"
@@ -102,4 +92,3 @@ tasks:
               vars:
                   HF_REPO: google/gemma-4-26B-A4B-it-qat-q4_0-gguf:Q4_0
                   ALIAS: gemma4-26b-a4b-it-qat-q4
-                  PORT: 8085
